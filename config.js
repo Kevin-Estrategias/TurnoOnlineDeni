@@ -1,8 +1,7 @@
-// Completá SUPABASE_URL y SUPABASE_KEY (ver README). La anon key es pública, está bien.
 window.CFG = {
-  URL: 'sb_publishable_qpgrVKLDHo3C5P4gGlpxSA_ObBMHh3o',
-  KEY: 'TU_SUPABASE_ANON_KEY',
+  URL: 'https://plfbzonotzogjpayfmws.supabase.co/rest/v1/',
+  KEY: 'sb_publishable_qpgrVKLDHo3C5P4gGlpxSA_ObBMHh3o',
   WA: '5491178227082',
   IG: 'https://www.instagram.com/denibruschi',
-  YT: '' // pegá tu canal de YouTube si querés mostrarlo
+  YT: 'https://www.youtube.com/@denibruschi/featured'
 };
