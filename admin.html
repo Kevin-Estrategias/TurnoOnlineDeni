@@ -1,47 +1,73 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>Panel · Canto DENI</title>
 <style>
-:root{--bg:#1b1030;--sf:#2a1b47;--tx:#f5efe6;--mu:#b9acd0;--ac:#ff4fa0;--ok:#7df0cf}
+:root{--bg:#1b1030;--sf:#2a1b47;--tx:#f5efe6;--mu:#b9acd0;--ac:#ffb3d1;--ink:#2a0f24;--ok:#9ff0d8;--or:#ffcf9f}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,sans-serif;padding:24px}
-main{max-width:980px;margin:auto}h1{margin:0 0 16px}h2{margin:28px 0 10px;font-size:1.1rem}
-.box{background:var(--sf);border-radius:14px;padding:18px;margin-bottom:14px}
-input,button{font:inherit;border-radius:10px;border:2px solid #4a3a6e;background:var(--bg);color:var(--tx);padding:9px 12px}
-button{cursor:pointer}.p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:700}
+main{max-width:1100px;margin:auto}h1{margin:0 0 16px;color:var(--ac)}h2{margin:26px 0 10px;font-size:1.1rem}
+.box{background:var(--sf);border-radius:14px;padding:16px;margin-bottom:14px}
+input,button,textarea{font:inherit;border-radius:10px;border:2px solid #4a3a6e;background:var(--bg);color:var(--tx);padding:8px 12px}
+button{cursor:pointer}.p{background:var(--ac);border-color:var(--ac);color:var(--ink);font-weight:700}
 .f{display:flex;flex-wrap:wrap;gap:10px;align-items:end}label{display:flex;flex-direction:column;font-size:.85rem;color:var(--mu);gap:4px}
-.s{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 0;border-top:1px solid #4a3a6e}
-.t{font-weight:700;min-width:56px}.l{color:var(--ok)}.r{color:#ffb86b}a{color:var(--ok)}.mu{color:var(--mu)}
+label.c{flex-direction:row;align-items:center;gap:5px;color:var(--tx)}label.c input{width:auto}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.st div{background:var(--sf);border-radius:12px;padding:12px}.st b{font-size:1.6rem;color:var(--ac);display:block}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.s{padding:8px 0;border-top:1px solid #4a3a6e;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.s button,.s a{font-size:.85rem;padding:4px 10px}
+.t{font-weight:700;min-width:50px}.l{color:var(--ok)}.r{color:var(--or);font-weight:700}a{color:var(--ok)}.mu{color:var(--mu)}.n{width:100%;font-size:.85rem;color:var(--mu)}
+details{border-top:1px solid #4a3a6e;padding:8px 0}summary{cursor:pointer}
 </style></head><body><main>
 <h1>Panel Canto DENI</h1>
 <div id="login" class="box"><div class="f"><label>Email<input id="em" type="email"></label><label>Contraseña<input id="pw" type="password"></label><button class="p" id="in">Entrar</button></div><p id="err" class="mu"></p></div>
 <div id="app" hidden>
-<div class="box"><b>Agregar disponibilidad</b> <span class="mu">(turnos de 10 min para el Meet)</span>
-<div class="f" style="margin-top:10px"><label>Día<input type="date" id="d"></label><label>Desde<input type="time" id="a" value="16:00"></label><label>Hasta<input type="time" id="b" value="18:00"></label><button class="p" id="add">Crear turnos</button></div>
+<div class="st" id="st"></div>
+<div class="box" style="margin-top:14px"><b>Cargar disponibilidad en la semana que ves</b>
+<div class="f" style="margin:10px 0" id="dc"></div>
+<div class="f"><label>Desde<input type="time" id="a" value="16:00"></label><label>Hasta<input type="time" id="b" value="18:00"></label><button class="p" id="add">Crear turnos de 10 min</button><button id="cp">Copiar semana anterior</button></div>
 <p class="mu" id="am"></p></div>
-<h2>Turnos</h2><div id="list"></div><button id="out" style="margin-top:20px">Salir</button></div>
+<div class="f"><button id="pv">← Semana anterior</button><b id="sem" style="padding:8px"></b><button id="nx">Semana siguiente →</button></div>
+<div class="g" id="grid" style="margin-top:12px"></div>
+<h2>Tests recibidos</h2><div class="box" id="tests"></div>
+<button id="out" style="margin-top:20px">Salir</button></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
 const $=s=>document.querySelector(s),sb=supabase.createClient(CFG.URL,CFG.KEY);
-const fd=f=>new Date(f+'T00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
+const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const ad=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const lun=d=>ad(new Date(d.getFullYear(),d.getMonth(),d.getDate()),-((d.getDay()+6)%7));
+const E=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const NB=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],fh=h=>h.slice(0,5);
+let mon=lun(new Date());
+$('#dc').innerHTML=NB.map((n,i)=>`<label class="c"><input type="checkbox" value="${i}" ${i>2&&i<6?'checked':''}>${n}</label>`).join('');
 async function init(){const {data}=await sb.auth.getSession();const ok=!!data.session;$('#login').hidden=ok;$('#app').hidden=!ok;if(ok)load()}
 $('#in').onclick=async()=>{const {error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});$('#err').textContent=error?'Email o contraseña incorrectos.':'';init()};
 $('#out').onclick=async()=>{await sb.auth.signOut();init()};
-$('#add').onclick=async()=>{const d=$('#d').value,[h1,m1]=$('#a').value.split(':').map(Number),[h2,m2]=$('#b').value.split(':').map(Number);
-  if(!d){$('#am').textContent='Elegí un día.';return}
-  const rows=[];for(let m=h1*60+m1;m+10<=h2*60+m2;m+=10)rows.push({fecha:d,hora:`${String(m/60|0).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`});
-  const {error}=await sb.from('slots').upsert(rows,{onConflict:'fecha,hora',ignoreDuplicates:true});
-  $('#am').textContent=error?'Error: '+error.message:`Listo: ${rows.length} turnos para ${fd(d)}.`;load()};
-async function load(){const {data}=await sb.from('slots').select().gte('fecha',new Date().toISOString().slice(0,10)).order('fecha').order('hora');
-  const g={};(data||[]).forEach(s=>(g[s.fecha]??=[]).push(s));
-  $('#list').innerHTML=Object.keys(g).length?'':'<p class="mu">Todavía no cargaste turnos.</p>';
-  for(const [d,arr] of Object.entries(g)){const bx=document.createElement('div');bx.className='box';bx.innerHTML=`<b>${fd(d)}</b> <button data-del="${d}" style="float:right">Borrar día libre</button>`;
-    arr.forEach(s=>{const h=s.hora.slice(0,5),st=document.createElement('div');st.className='s';
-      const gc=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Meet 10 min - '+s.nombre)}&dates=${d.replaceAll('-','')}T${h.replace(':','')}00/${d.replaceAll('-','')}T${String(+h.slice(0,2)+(+h.slice(3)+10>59?1:0)).padStart(2,'0')}${String((+h.slice(3)+10)%60).padStart(2,'0')}00&ctz=America/Argentina/Buenos_Aires`;
-      st.innerHTML=`<span class="t">${h}</span>`+(s.libre?`<span class="l">Libre</span><button data-rm="${s.id}">Quitar</button>`:`<span class="r">Reservado: ${s.nombre}</span><a target="_blank" href="${gc}">Google Calendar</a><button data-fr="${s.id}">Liberar</button>`);
-      bx.append(st)});$('#list').append(bx)}}
-$('#list').onclick=async e=>{const t=e.target.dataset;
+$('#pv').onclick=()=>{mon=ad(mon,-7);load()};$('#nx').onclick=()=>{mon=ad(mon,7);load()};
+function rango(a,b){const [h1,m1]=a.split(':').map(Number),[h2,m2]=b.split(':').map(Number),r=[];for(let m=h1*60+m1;m+10<=h2*60+m2;m+=10)r.push(`${String(m/60|0).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`);return r}
+async function crear(rows,txt){if(!rows.length){$('#am').textContent='No hay nada para cargar.';return}
+  const {error}=await sb.from('slots').upsert(rows,{onConflict:'fecha,hora',ignoreDuplicates:true});$('#am').textContent=error?'Error: '+error.message:txt(rows.length);load()}
+$('#add').onclick=()=>{const hs=rango($('#a').value,$('#b').value),rows=[];
+  document.querySelectorAll('#dc input:checked').forEach(c=>hs.forEach(h=>rows.push({fecha:iso(ad(mon,+c.value)),hora:h})));crear(rows,n=>`Listo: ${n} turnos cargados en esta semana.`)};
+$('#cp').onclick=async()=>{const {data}=await sb.from('slots').select('fecha,hora').gte('fecha',iso(ad(mon,-7))).lte('fecha',iso(ad(mon,-1)));
+  crear((data||[]).map(s=>({fecha:iso(ad(new Date(s.fecha+'T00:00'),7)),hora:s.hora})),n=>`Listo: copiados ${n} turnos de la semana anterior.`)};
+const gc=s=>{const [h,m]=s.hora.split(':').map(Number),d=s.fecha.replaceAll('-',''),f=x=>`${String(x/60|0).padStart(2,'0')}${String(x%60).padStart(2,'0')}00`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Meet 10 min - '+s.nombre)}&dates=${d}T${f(h*60+m)}/${d}T${f(h*60+m+10)}&ctz=America/Argentina/Buenos_Aires`};
+async function load(){
+  const fin=ad(mon,6);$('#sem').textContent=`${mon.toLocaleDateString('es-AR',{day:'numeric',month:'short'})} al ${fin.toLocaleDateString('es-AR',{day:'numeric',month:'short'})}`;
+  const {data}=await sb.from('slots').select().gte('fecha',iso(mon)).lte('fecha',iso(fin)).order('hora'),S=data||[];
+  const hoy=iso(new Date()),T=(await sb.from('tests').select().order('creado',{ascending:false}).limit(30)).data||[];
+  $('#st').innerHTML=`<div><b>${S.filter(s=>s.fecha===hoy&&!s.libre).length}</b>Meets hoy</div><div><b>${S.filter(s=>!s.libre).length}</b>Reservados esta semana</div><div><b>${S.filter(s=>s.libre).length}</b>Libres esta semana</div><div><b>${T.length}</b>Tests recibidos</div>`;
+  $('#grid').innerHTML='';
+  for(let i=0;i<7;i++){const d=iso(ad(mon,i)),arr=S.filter(s=>s.fecha===d);if(!arr.length&&(i<3||i>5))continue;
+    const bx=document.createElement('div');bx.className='box';bx.innerHTML=`<b>${NB[i]} ${ad(mon,i).getDate()}</b>`+(arr.some(s=>s.libre)?` <button data-del="${d}" style="float:right;font-size:.8rem">Borrar libres</button>`:'')+(arr.length?'':'<p class="mu">Sin turnos</p>');
+    arr.forEach(s=>{const st=document.createElement('div');st.className='s';const w=`https://wa.me/${encodeURIComponent(s.telefono)}?text=${encodeURIComponent('Hola '+s.nombre+'! Te paso el link del Meet: ')}`;
+      st.innerHTML=`<span class="t">${fh(s.hora)}</span>`+(s.libre?`<span class="l">Libre</span><button data-rm="${s.id}">Quitar</button>`:`<span class="r">${E(s.nombre)}</span><a target="_blank" href="${w}">Escribirle</a><a target="_blank" href="${gc(s)}">Calendar</a><button data-nt="${s.id}">Notas</button><button data-fr="${s.id}">Liberar</button>${s.notas?`<span class="n">📝 ${E(s.notas)}</span>`:''}`);
+      st.querySelectorAll('[data-nt]').forEach(b=>b.dataset.v=s.notas||'');bx.append(st)});$('#grid').append(bx)}
+  $('#tests').innerHTML=T.length?'':'<span class="mu">Todavía no llegó ningún test.</span>';
+  T.forEach(t=>{const e=document.createElement('details');e.innerHTML=`<summary><b>${E(t.nombre)}</b> · ${E(t.variante)} · ${new Date(t.creado).toLocaleDateString('es-AR')}</summary><p><a target="_blank" href="https://wa.me/${encodeURIComponent(t.telefono)}">Escribirle por WhatsApp</a></p>`+(t.respuestas||[]).map(x=>`<p><span class="mu">${E(x.p)}</span><br>${E(x.r)}</p>`).join('');$('#tests').append(e)})}
+$('#grid').onclick=async e=>{const t=e.target.dataset;
   if(t.rm)await sb.from('slots').delete().eq('id',t.rm);
-  if(t.fr)await sb.from('slots').update({libre:true,nombre:null,telefono:null,perfil:null}).eq('id',t.fr);
+  if(t.fr&&confirm('¿Liberar este turno? Se borran los datos de la reserva.'))await sb.from('slots').update({libre:true,nombre:null,telefono:null,perfil:null,notas:null}).eq('id',t.fr);
+  if(t.nt){const n=prompt('Notas de este alumno:',t.v);if(n!==null)await sb.from('slots').update({notas:n}).eq('id',t.nt)}
   if(t.del)await sb.from('slots').delete().eq('fecha',t.del).eq('libre',true);load()};
 init();
 </script></main></body></html>
