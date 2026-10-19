@@ -1,57 +1,67 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Canto DENI · Clases de canto en vivo</title>
-<meta name="description" content="Clases de canto en vivo con Deni Bruschi, vocal coach. Reservá tu Meet de 10 minutos.">
+<meta name="description" content="Clases de canto en vivo con Deni Bruschi, vocal coach. Reservá tu Meet de 10 minutos gratis.">
+<meta property="og:title" content="Canto DENI · Clases de canto en vivo"><meta property="og:description" content="Vocal coach. Reservá tu Meet de 10 minutos.">
+<meta property="og:type" content="website"><meta name="theme-color" content="#1b1030">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1b1030;--sf:#2a1b47;--tx:#f5efe6;--mu:#b9acd0;--ac:#ff4fa0;--ok:#7df0cf}
+:root{--bg:#1b1030;--sf:#2a1b47;--tx:#f5efe6;--mu:#b9acd0;--ac:#ffb3d1;--ink:#2a0f24;--ok:#9ff0d8}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.55 'DM Sans',system-ui,sans-serif}
-h1,h2{font-family:Unbounded,sans-serif;line-height:1.1;margin:0 0 .5em}
-h2{font-size:clamp(1.4rem,4vw,2rem)}
-section{max-width:860px;margin:auto;padding:56px 20px}
+h1,h2{font-family:Unbounded,sans-serif;line-height:1.1;margin:0 0 .5em}h2{font-size:clamp(1.4rem,4vw,2rem)}h3{margin:.2em 0 .6em}
+section{max-width:860px;margin:auto;padding:52px 20px}
 .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.hero h1{font-size:clamp(3rem,13vw,7.5rem);font-weight:800;margin:0}
+.hero h1{font-size:clamp(3rem,13vw,7.5rem);font-weight:800;margin:0;color:var(--ac)}
 .hero p{max-width:34ch;color:var(--mu);font-size:1.15rem}
-.wave{position:absolute;right:-20px;bottom:0;display:flex;align-items:center;gap:6px;height:60%;opacity:.5;z-index:-1}
+.wave{position:absolute;right:-20px;bottom:0;display:flex;align-items:center;gap:6px;height:60%;opacity:.35;z-index:-1}
 .wave i{display:block;width:8px;border-radius:8px;background:var(--ac);animation:w 1.6s ease-in-out infinite alternate}
-@keyframes w{to{transform:scaleY(.25)}}
-@media(prefers-reduced-motion:reduce){.wave i{animation:none}}
-.btn{display:inline-block;background:var(--ac);color:#fff;border:0;border-radius:99px;padding:14px 26px;font:700 1rem 'DM Sans';cursor:pointer;text-decoration:none}
+@keyframes w{to{transform:scaleY(.25)}}@media(prefers-reduced-motion:reduce){.wave i{animation:none}}
+.btn{display:inline-block;background:var(--ac);color:var(--ink);border:0;border-radius:99px;padding:14px 26px;font:700 1rem 'DM Sans';cursor:pointer;text-decoration:none}
 .btn.o{background:none;border:2px solid var(--mu);color:var(--tx)}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .box{background:var(--sf);border-radius:18px;padding:24px}
 .opt{display:block;width:100%;text-align:left;margin:8px 0;background:none;border:2px solid #4a3a6e;color:var(--tx);border-radius:12px;padding:13px 16px;font:inherit;cursor:pointer}
-.opt:hover,.opt.on{border-color:var(--ac)}
+.opt:hover{border-color:var(--ac)}
 .chip{background:none;border:2px solid #4a3a6e;color:var(--tx);border-radius:12px;padding:9px 14px;font:inherit;cursor:pointer}
 .chip.on{background:var(--ok);border-color:var(--ok);color:#12091f;font-weight:700}
 input,textarea{width:100%;background:var(--bg);border:2px solid #4a3a6e;color:var(--tx);border-radius:12px;padding:12px;font:inherit;margin:8px 0}
 :focus-visible{outline:3px solid var(--ok);outline-offset:2px}
 .mu{color:var(--mu)}.bar{height:6px;background:#4a3a6e;border-radius:9px;margin-bottom:18px}.bar b{display:block;height:100%;background:var(--ac);border-radius:9px;transition:width .3s}
+.foto{width:132px;height:132px;border-radius:50%;object-fit:cover;float:left;margin:0 20px 8px 0;border:3px solid var(--ac)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.steps div{background:var(--sf);border-radius:16px;padding:18px}
+details{background:var(--sf);border-radius:14px;padding:14px 18px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.okb{text-align:center}.okb h3{color:var(--ok);font-size:1.4rem}
 footer{text-align:center;color:var(--mu);padding:40px 20px}
 </style></head><body>
-<section class="hero">
-<div class="wave" aria-hidden="true" id="wave"></div>
-<h1>Canto<br>DENI</h1>
-<p>Clases de canto en vivo, de jueves a sábado. Tu voz, con técnica de estudio.</p>
-<div class="row"><a class="btn" href="#turno">Reservar mi Meet de 10 min</a><a class="btn o" href="#test">Hacer el test</a></div>
-</section>
+<section class="hero"><div class="wave" aria-hidden="true" id="wave"></div>
+<h1>Canto<br>DENI</h1><p>Clases de canto en vivo, de jueves a sábado. Tu voz, con técnica de estudio.</p>
+<div class="row"><a class="btn" href="#turno">Reservar mi Meet de 10 min</a><a class="btn o" href="#test">Hacer el test</a></div></section>
 
 <section id="sobre"><h2>Soy Deni</h2>
+<img class="foto" src="foto.jpg" alt="Deni Bruschi" onerror="this.remove()">
 <p>Cantante, vocal coach y técnica en sonido y grabación. Te acompaño tanto si querés llevar tu show o tu disco a otro nivel como si recién arrancás y querés perderle el miedo a cantar.</p>
-<p><b>Cómo son las clases:</b> son en vivo y duran 1 hora cada una. Antes de empezar hacemos un Meet gratuito de 10 minutos para conocer tu voz y tus objetivos.</p>
-<div class="row"><a class="btn o" id="ig" target="_blank" rel="noopener">Instagram</a><a class="btn o" id="yt" target="_blank" rel="noopener" hidden>YouTube</a></div></section>
+<div class="row" style="clear:both"><a class="btn o" id="ig" target="_blank" rel="noopener">Instagram</a><a class="btn o" id="yt" target="_blank" rel="noopener" hidden>YouTube</a></div></section>
+
+<section><h2>Cómo funciona</h2><div class="steps">
+<div><b>1. Reservá</b><br><span class="mu">Elegí un día y horario libre para un Meet gratuito de 10 minutos.</span></div>
+<div><b>2. Nos conocemos</b><br><span class="mu">Escucho tu voz, hablamos de tus objetivos y te cuento cómo trabajo.</span></div>
+<div><b>3. Empezamos</b><br><span class="mu">Clases en vivo de 1 hora, de jueves a sábado, con un plan para vos.</span></div></div></section>
 
 <section id="turno"><h2>Reservá tu Meet de 10 minutos</h2>
 <p class="mu">Elegí un día y un horario libre. Después te mando el link del Meet por WhatsApp.</p>
-<div class="box"><div id="dias" class="row" style="margin:0 0 14px"></div><div id="horas" class="row" style="margin:0 0 14px"></div>
-<div id="form" hidden><input id="nom" placeholder="Tu nombre" autocomplete="name"><button class="btn" id="rsv">Confirmar y avisar por WhatsApp</button></div>
+<div class="box" id="tr"><div id="dias" class="row" style="margin:0 0 14px"></div><div id="horas" class="row" style="margin:0 0 14px"></div>
+<div id="form" hidden><input id="nom" placeholder="Tu nombre" autocomplete="name"><input id="tel" type="tel" placeholder="Tu WhatsApp con código de área, sin 0 ni 15 (ej: 11 2345 6789)" autocomplete="tel"><button class="btn" id="rsv">Reservar</button></div>
 <p id="msg" class="mu"></p></div></section>
 
-<section id="test"><h2>Test para conocerte</h2>
-<p class="mu">10 preguntas. Elegí tu caso:</p>
-<div class="box" id="tb"></div></section>
+<section id="test"><h2>Test para conocerte</h2><p class="mu">10 preguntas, 2 minutos. Elegí tu caso:</p><div class="box" id="tb"></div></section>
+
+<section><h2>Preguntas frecuentes</h2>
+<details><summary>¿El Meet de 10 minutos tiene costo?</summary><p class="mu">No, es gratuito. Es para conocernos y ver si la clase es lo que necesitás.</p></details>
+<details><summary>¿Necesito experiencia previa?</summary><p class="mu">No. Trabajo con quienes recién empiezan y con quienes ya suben a un escenario.</p></details>
+<details><summary>¿Cómo son las clases?</summary><p class="mu">En vivo, de 1 hora, de jueves a sábado.</p></details>
+<details><summary>¿Cuánto cuestan las clases?</summary><p class="mu">Escribime por WhatsApp y te paso los valores.</p></details></section>
 
 <section><h2>Escribime</h2><a class="btn" id="wa" target="_blank" rel="noopener">WhatsApp +54 9 11 7822-7082</a></section>
 <footer>© Canto DENI</footer>
@@ -59,28 +69,32 @@ footer{text-align:center;color:var(--mu);padding:40px 20px}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
-const $=s=>document.querySelector(s), wa=t=>`https://wa.me/${CFG.WA}?text=${encodeURIComponent(t)}`;
-$('#ig').href=CFG.IG; if(CFG.YT){$('#yt').href=CFG.YT;$('#yt').hidden=false}
+const $=s=>document.querySelector(s),wa=(t,n=CFG.WA)=>`https://wa.me/${n}?text=${encodeURIComponent(t)}`;
+const tel=v=>{const d=v.replace(/\D/g,'');return d.startsWith('54')?d:'549'+d.replace(/^0/,'')};
+$('#ig').href=CFG.IG;if(CFG.YT){$('#yt').href=CFG.YT;$('#yt').hidden=false}
 $('#wa').href=wa('Hola Deni! Vi tu web y quiero consultarte por las clases de canto.');
 $('#wave').innerHTML=Array.from({length:28},(_,i)=>`<i style="height:${20+Math.abs(Math.sin(i*.7))*80}%;animation-delay:${i*.07}s"></i>`).join('');
+const done=(el,t,p,url,btn)=>{el.innerHTML=`<div class="okb"><h3>${t}</h3><p class="mu">${p}</p><a class="btn" href="${url}" target="_blank" rel="noopener">${btn}</a></div>`};
 
 // ---- Turnos
 const sb=supabase.createClient(CFG.URL,CFG.KEY);let slots=[],selId=null,selTxt='';
-const fd=f=>new Date(f+'T00:00').toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'short'});
+const fd=f=>new Date(f+'T00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
 async function load(){
   const {data,error}=await sb.from('slots_publicos').select().order('fecha').order('hora');
   if(error){$('#msg').textContent='No pude cargar los turnos. Escribime por WhatsApp.';return}
   slots=data;const ds=[...new Set(slots.map(s=>s.fecha))];
   $('#dias').innerHTML=ds.length?'':'Por ahora no hay turnos libres. Escribime por WhatsApp.';
-  ds.forEach(d=>{const b=document.createElement('button');b.className='chip';b.textContent=fd(d);b.onclick=()=>{document.querySelectorAll('#dias .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');horas(d)};$('#dias').append(b)});
-}
+  ds.forEach(d=>{const b=document.createElement('button');b.className='chip';b.textContent=fd(d);b.onclick=()=>{document.querySelectorAll('#dias .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');horas(d)};$('#dias').append(b)})}
 function horas(d){selId=null;$('#form').hidden=true;$('#horas').innerHTML='';
   slots.filter(s=>s.fecha===d).forEach(s=>{const b=document.createElement('button');b.className='chip';b.textContent=s.hora.slice(0,5);
-    b.onclick=()=>{selId=s.id;selTxt=`${fd(d)} ${s.hora.slice(0,5)} hs`;document.querySelectorAll('#horas .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#form').hidden=false};$('#horas').append(b)})}
-$('#rsv').onclick=async()=>{const n=$('#nom').value.trim();if(!n||!selId){$('#msg').textContent='Poné tu nombre y elegí un horario.';return}
-  const {data,error}=await sb.rpc('reservar',{p_id:selId,p_nombre:n,p_tel:'',p_perfil:'meet10'});
-  if(error||!data){$('#msg').textContent='Ese horario ya se tomó. Elegí otro.';load();$('#form').hidden=true;return}
-  location.href=wa(`Hola Deni! Soy ${n}. Reservé el Meet de 10 min para el ${selTxt}.`)};
+    b.onclick=()=>{selId=s.id;selTxt=`${fd(d)}, ${s.hora.slice(0,5)} hs`;document.querySelectorAll('#horas .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#form').hidden=false};$('#horas').append(b)})}
+$('#rsv').onclick=async()=>{const n=$('#nom').value.trim(),t=tel($('#tel').value);
+  if(!n||$('#tel').value.replace(/\D/g,'').length<8||!selId){$('#msg').textContent='Completá tu nombre, tu WhatsApp y elegí un horario.';return}
+  $('#rsv').disabled=true;const {data,error}=await sb.rpc('reservar',{p_id:selId,p_nombre:n,p_tel:t});$('#rsv').disabled=false;
+  if(error){$('#msg').textContent='No se pudo reservar. Escribime por WhatsApp.';return}
+  if(data==='ok')return done($('#tr'),'¡Reserva confirmada!',`${n}, te espero el ${selTxt}. Avisame por WhatsApp para que te pase el link del Meet.`,wa(`Hola Deni! Soy ${n}. Reservé el Meet de 10 min para el ${selTxt}.`),'Avisar por WhatsApp');
+  $('#msg').textContent=data==='limite'?'Ya tenés un Meet reservado. Escribime si querés cambiarlo.':data==='ocupado'?'Ese horario ya se tomó. Elegí otro.':'Revisá tus datos.';
+  if(data==='ocupado'){$('#form').hidden=true;load()}};
 load();
 
 // ---- Test (sin opciones = respuesta escrita)
@@ -105,14 +119,16 @@ inicio:{n:'Quiero empezar a cantar y perder el miedo',q:[
 ['¿Qué música te gusta cantar?'],
 ['¿Qué te gustaría cantar dentro de 3 meses?'],
 ['¿Cuánto tiempo podés practicar por semana?',['Menos de 1 hora','1 a 3 horas','Más de 3 horas']],
-['¿Qué horario te queda cómodo?',['Jueves','Viernes','Sábado','Cualquiera']],
+['¿Qué día te queda cómodo?',['Jueves','Viernes','Sábado','Cualquiera']],
 ['¿Algo más que quieras contarme?']]}};
 let v,i,ans;const tb=$('#tb');
 function pick(){tb.innerHTML=Object.entries(T).map(([k,t])=>`<button class="opt" data-k="${k}">${t.n}</button>`).join('');
   tb.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{v=b.dataset.k;i=0;ans=[];show()})}
 function show(){const Q=T[v].q;
-  if(i===Q.length){tb.innerHTML=`<h3>¡Listo!</h3><input id="tn" placeholder="Tu nombre"><button class="btn" id="env">Enviarme el test por WhatsApp</button>`;
-    $('#env').onclick=()=>{const n=$('#tn').value.trim()||'Alumno/a';location.href=wa(`Hola Deni! Soy ${n}. Hice el test "${T[v].n}":\n\n`+Q.map((q,j)=>`${j+1}. ${q[0]}\n${ans[j]}`).join('\n\n'))};return}
+  if(i===Q.length){tb.innerHTML=`<h3>¡Listo! Último paso</h3><input id="tn" placeholder="Tu nombre"><input id="tt" type="tel" placeholder="Tu WhatsApp con código de área (ej: 11 2345 6789)"><button class="btn" id="env">Enviar mi test</button><p id="te" class="mu"></p>`;
+    $('#env').onclick=async()=>{const n=$('#tn').value.trim(),raw=$('#tt').value;if(!n||raw.replace(/\D/g,'').length<8){$('#te').textContent='Completá tu nombre y WhatsApp.';return}
+      const resp=Q.map((q,j)=>({p:q[0],r:ans[j]}));await sb.rpc('guardar_test',{p_nombre:n,p_tel:tel(raw),p_var:T[v].n,p_resp:resp});
+      done(tb,'¡Test enviado!','Gracias por contarme. Tocá el botón para avisarme por WhatsApp y seguir hablando.',wa(`Hola Deni! Soy ${n}. Hice el test "${T[v].n}":\n\n`+resp.map((x,j)=>`${j+1}. ${x.p}\n${x.r}`).join('\n\n')),'Avisar por WhatsApp')};return}
   const [q,o]=Q[i];tb.innerHTML=`<div class="bar"><b style="width:${i/Q.length*100}%"></b></div><p class="mu">Pregunta ${i+1} de ${Q.length}</p><h3>${q}</h3>`+
    (o?o.map(x=>`<button class="opt">${x}</button>`).join(''):`<textarea rows="3" id="tx"></textarea><button class="btn" id="nx">Siguiente</button>`);
   tb.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans[i]=b.textContent;i++;show()});
